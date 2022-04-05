@@ -10,6 +10,7 @@
 	<!-- h1>loream1^p>lorem -->
 	<h1>Lorem.</h1>
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo impedit hic voluptatibus illo minima dolorem minus provident labore odit est nam aliquam. Laudantium quas temporibus tempore fuga ratione ipsam officia.</p>
-
+	
+	<input type="text"/><input type="text"/>
 </body>
 </html>
