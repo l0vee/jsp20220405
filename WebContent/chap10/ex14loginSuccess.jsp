@@ -11,27 +11,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>ex09.jsp</h1>
-	<%-- 
-	1.ex08.jsp 먼저 요청
-	2.ex09.jsp 두번째 요청
-	
-	 --%>
-	<%
-	List<String> list = (List<String>) session.getAttribute("names");
-	
-	out.print("<ul>");
-	for (String name : list) {
-		out.print("<li>");
-		out.print(name); // list item 3개 출력
-		out.print("</li>");
-	}
-	
-	out.print("</ul>");
-	%>
-
+	<h1>로그인 성공</h1>
+	<h2><%= session.getAttribute("username") %>님 로그인 성공, 반갑습니다.</h2>
 </body>
 </html>
+
 
 
 

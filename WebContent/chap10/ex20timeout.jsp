@@ -11,29 +11,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>ex09.jsp</h1>
-	<%-- 
-	1.ex08.jsp 먼저 요청
-	2.ex09.jsp 두번째 요청
+	<h1>session time out</h1>
+	<h2>id : <%= session.getId() %></h2>
 	
-	 --%>
 	<%
-	List<String> list = (List<String>) session.getAttribute("names");
+	Date date = new Date(session.getLastAccessedTime());
+	java.text.DateFormat formatter = new java.text.SimpleDateFormat("HH:mm:ss.SSS");
+	formatter.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+	String dateFormatted = formatter.format(date);
 	
-	out.print("<ul>");
-	for (String name : list) {
-		out.print("<li>");
-		out.print(name); // list item 3개 출력
-		out.print("</li>");
-	}
-	
-	out.print("</ul>");
 	%>
-
+	<h2>마지막접근: <%= dateFormatted %></h2>
 </body>
 </html>
-
-
 
 
 

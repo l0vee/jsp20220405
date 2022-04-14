@@ -11,27 +11,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>ex09.jsp</h1>
-	<%-- 
-	1.ex08.jsp 먼저 요청
-	2.ex09.jsp 두번째 요청
-	
-	 --%>
-	<%
-	List<String> list = (List<String>) session.getAttribute("names");
-	
-	out.print("<ul>");
-	for (String name : list) {
-		out.print("<li>");
-		out.print(name); // list item 3개 출력
-		out.print("</li>");
-	}
-	
-	out.print("</ul>");
-	%>
-
+	<h1>로그인</h1>
+	<form action="ex13loginProcess.jsp" method="post">
+		아이디: <input type="text" name="id" /> <br />
+		암호: <input type="password" name="pw" /> <br />
+		
+		<input type="submit" value="로그인"/>
+	</form>
 </body>
 </html>
+
+
+
 
 
 

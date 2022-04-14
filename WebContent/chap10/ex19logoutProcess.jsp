@@ -11,25 +11,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>ex09.jsp</h1>
-	<%-- 
-	1.ex08.jsp 먼저 요청
-	2.ex09.jsp 두번째 요청
-	
-	 --%>
 	<%
-	List<String> list = (List<String>) session.getAttribute("names");
-	
-	out.print("<ul>");
-	for (String name : list) {
-		out.print("<li>");
-		out.print(name); // list item 3개 출력
-		out.print("</li>");
-	}
-	
-	out.print("</ul>");
+	// session.removeAttribute("id");
+	// session 삭제
+	session.invalidate();
 	%>
 
+	<h1>로그아웃 되었습니다.</h1>
+	
+	<h2><a href="ex17loginForm.jsp">로그인 하러 가기</a></h2>
 </body>
 </html>
 
