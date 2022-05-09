@@ -10,15 +10,15 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Servlet Filter implementation class Filter01
+ * Servlet Filter implementation class Filter02
  */
-// @WebFilter("/Filter01")
-public class Filter01 implements Filter {
+//@WebFilter("/Filter02")
+public class Filter02 implements Filter {
 
     /**
      * Default constructor. 
      */
-    public Filter01() {
+    public Filter02() {
         // TODO Auto-generated constructor stub
     }
 
@@ -35,7 +35,7 @@ public class Filter01 implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		System.out.println("필터1번 거쳐감!!!");
+		System.out.println("2번 필터 거쳐감@@@@@@");
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
 	}
