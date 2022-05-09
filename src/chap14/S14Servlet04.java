@@ -3,10 +3,7 @@ package chap14;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 /**
- * Servlet implementation class S14Servlet01
+ * Servlet implementation class S14Servlet04
  */
-@WebServlet("/S14Servlet01")
-public class S14Servlet01 extends HttpServlet {
+@WebServlet("/S14Servlet04")
+public class S14Servlet04 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public S14Servlet01() {
+    public S14Servlet04() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,52 +32,36 @@ public class S14Servlet01 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext application =getServletContext();
-		// database에서 records 가져오기
-		// 1.연결설정
+		String sql = "SELECT CustomerName, City, Country, PostalCode FROM Customers WHERE CustomerID = 2";
 		
-		DataSource ds =(DataSource) application.getAttribute("dbpool");
+		ServletContext application = getServletContext();
+		DataSource ds = (DataSource) application.getAttribute("dbpool");
 		
-		String sql="SELECT city FROM Customers";
-		
-		try {
+		try (
 			Connection con = ds.getConnection();
-			// 2.statement 객체 생성
 			Statement stmt = con.createStatement();
-			// 3.쿼리 실행
 			ResultSet rs = stmt.executeQuery(sql);
+				) {
 			
-		//result.set 쿼리 실행 결과를 받음
-		//next 현재 위치에서 다음 위치로 커서를 옮김
-		//boolean next 이므로 옮김 성공하면 true
-		//getString으로 잘 얻어옴.
-		
-		// 4.실행결과 정제
-		while (rs.next()) {
-			String city=rs.getNString(1);
-			System.out.println(city);
-		}
-		
+			if (rs.next()) {
+				String name = rs.getString("CustomerName");
+				String country = rs.getString("Country");
+				String city = rs.getString("City");
+				String postalCode = rs.getString("postalCode");
+				
+				request.setAttribute("name", name);
+				request.setAttribute("city", city);
+				request.setAttribute("country", country);
+				request.setAttribute("postCode", postalCode);
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// 5.자원닫기
-//		rs.close();
-//		stmt.close();
-//		con.close();
 		
-		
-		List<String> cities = new ArrayList<>();
-		cities.add("Berlin");
-		cities.add("London");
-		cities.add("Madrid");
-		
-		// request에 records 넣기
-		request.setAttribute("cities", cities);
-		
-		// jsp로 forward
-		String location ="/WEB-INF/view/chap14/ex01.jsp";
-		request.getRequestDispatcher(location).forward(request, response);
+		String path = "/WEB-INF/view/chap14/ex02.jsp";
+		request.getRequestDispatcher(path).forward(request, response);
 		
 	}
 

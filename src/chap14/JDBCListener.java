@@ -22,7 +22,7 @@ import org.mariadb.jdbc.MariaDbPoolDataSource;
 @WebListener
 public class JDBCListener implements ServletContextListener {
 
-	private MariaDbPoolDataSource pool;
+	private MariaDbPoolDataSource pool; //선언해주고
 	
 	/**
 	 * Default constructor.
@@ -36,7 +36,7 @@ public class JDBCListener implements ServletContextListener {
 	 */
 	public void contextDestroyed(ServletContextEvent sce) {
 		if (pool != null) {
-			pool.close();
+			pool.close(); //닫아주고
 		}
 	}
 
@@ -71,7 +71,7 @@ public class JDBCListener implements ServletContextListener {
 		try (Connection con = pool.getConnection();
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT 333");) {
-			
+			//쿼리에는  ; 안 붙임
 			if (rs.next()) {
 				if (rs.getInt(1) == 333) {
 					System.out.println("데이터베이스 연결 성공!");

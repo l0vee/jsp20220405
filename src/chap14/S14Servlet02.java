@@ -3,10 +3,7 @@ package chap14;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -17,16 +14,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 /**
- * Servlet implementation class S14Servlet01
+ * Servlet implementation class S14Servlet02
  */
-@WebServlet("/S14Servlet01")
-public class S14Servlet01 extends HttpServlet {
+@WebServlet("/S14Servlet02")
+public class S14Servlet02 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public S14Servlet01() {
+    public S14Servlet02() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,52 +32,32 @@ public class S14Servlet01 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ServletContext application =getServletContext();
-		// database에서 records 가져오기
-		// 1.연결설정
+		String sql = "SELECT CustomerName FROM Customers WHERE CustomerID = 1";
 		
-		DataSource ds =(DataSource) application.getAttribute("dbpool");
-		
-		String sql="SELECT city FROM Customers";
-		
-		try {
+		ServletContext application = getServletContext();
+		DataSource ds = (DataSource) application.getAttribute("dbpool");
+		try (
+			// 1. 연결얻기
 			Connection con = ds.getConnection();
-			// 2.statement 객체 생성
+			// 2. statment 생성
 			Statement stmt = con.createStatement();
-			// 3.쿼리 실행
+			// 3. 쿼리 실행
 			ResultSet rs = stmt.executeQuery(sql);
-			
-		//result.set 쿼리 실행 결과를 받음
-		//next 현재 위치에서 다음 위치로 커서를 옮김
-		//boolean next 이므로 옮김 성공하면 true
-		//getString으로 잘 얻어옴.
-		
-		// 4.실행결과 정제
-		while (rs.next()) {
-			String city=rs.getNString(1);
-			System.out.println(city);
-		}
-		
+				) {
+			// 4. 결과 정제
+			if (rs.next()) {
+				String customerName = rs.getString(1);
+				System.out.println(customerName);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		// 5.자원닫기
-//		rs.close();
-//		stmt.close();
-//		con.close();
 		
 		
-		List<String> cities = new ArrayList<>();
-		cities.add("Berlin");
-		cities.add("London");
-		cities.add("Madrid");
+		// 5. 자원닫고 (try-with-resource 문법으로 해결)
 		
-		// request에 records 넣기
-		request.setAttribute("cities", cities);
+
 		
-		// jsp로 forward
-		String location ="/WEB-INF/view/chap14/ex01.jsp";
-		request.getRequestDispatcher(location).forward(request, response);
 		
 	}
 

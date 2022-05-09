@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+S14Servlet05.java<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.*"%>
-<%@ taglib prefix = "c" uri ="http://java.sun.com/jsp/jstl/core" %>
-<% request.setCharacterEncoding("utf-8"); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,10 +12,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
-
-
-
+	<%-- 1번 직원의 이름, 생일 출력 --%>
+	<%-- S14Servlet06 서블릿과, Employee 자바빈을 작성하세요. --%>
+	<h1>직원 ${employee.firstName } ${employee.lastName }의 생일은 ${employee.birthDate }입니다.</h1>
 </body>
 </html>
+
+
+
+
